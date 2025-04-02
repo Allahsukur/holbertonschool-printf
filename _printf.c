@@ -1,6 +1,6 @@
 #include <stdarg.h>
 #include <unistd.h>
-
+/*rfhnksf fhfhodjf kjfhkfjh*/
 int _printf(const char *format, ...) {
     va_list args;
     int count = 0;
