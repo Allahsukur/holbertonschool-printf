@@ -1,37 +1,68 @@
 #include <stdarg.h>
 #include <unistd.h>
-/*rfhnksf fhfhodjf kjfhkfjh*/
-int _printf(const char *format, ...) {
+
+/**
+ * _printf - Custom printf function supporting %c, %s, and %%
+ * @format: format string
+ * Return: number of characters printed
+ */
+int _printf(const char *format, ...)
+{
     va_list args;
-    int count = 0;
-    const char *ptr;
+    int i = 0, count = 0;
+    char c;
+    char *str;
+
+    if (!format)
+        return (-1);
 
     va_start(args, format);
 
-    for (ptr = format; *ptr != '\0'; ptr++) {
-        if (*ptr == '%' && (*(ptr + 1) == 'c' || *(ptr + 1) == 's' || *(ptr + 1) == '%')) {
-            ptr++;  /* Move past '%' to check the specifier */
-            if (*ptr == 'c') {
-                char c = va_arg(args, int);  /* 'c' expects an int, not a char */
+    while (format[i])
+    {
+        if (format[i] == '%')
+        {
+            i++;
+            if (!format[i])
+                return (-1);
+            if (format[i] == 'c')
+            {
+                c = va_arg(args, int);
                 write(1, &c, 1);
                 count++;
-            } else if (*ptr == 's') {
-                char *str = va_arg(args, char*);
-                int i;  /* Declare 'i' before the loop */
-                for (i = 0; str[i] != '\0'; i++) {
-                    write(1, &str[i], 1);
+            }
+            else if (format[i] == 's')
+            {
+                str = va_arg(args, char *);
+                if (!str)
+                    str = "(null)";
+                while (*str)
+                {
+                    write(1, str, 1);
+                    str++;
                     count++;
                 }
-            } else if (*ptr == '%') {
+            }
+            else if (format[i] == '%')
+            {
                 write(1, "%", 1);
                 count++;
             }
-        } else {
-            write(1, ptr, 1);  /* Regular character */
+            else
+            {
+                write(1, "%", 1);
+                write(1, &format[i], 1);
+                count += 2;
+            }
+        }
+        else
+        {
+            write(1, &format[i], 1);
             count++;
         }
+        i++;
     }
 
     va_end(args);
-    return count;
+    return (count);
 }
