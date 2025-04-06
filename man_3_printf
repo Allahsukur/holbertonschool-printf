@@ -1,0 +1,43 @@
+#!/bin/sh
+echo ".\" Manpage for printf
+.TH PRINTF 0 \"06 Apr 2025\" \"0.1\" \"DIY User commands\"
+.SH NAME:
+printf \- prints formatted string (function we\'ve been creating for a week)
+.SH SYNOPSIS:
+.B int
+.B _printf(const char *format, ...);
+.SH DESCRIPTION:
+The _printf() function formats and prints data to stdout stream.
+.br
+The FORMAT string specifies the format of the output.
+.br
+It consists of zero or more conversion specifications, each of which is preceded by a percent sign (%).
+.PP FLAGS:
+c: Character;
+.br
+s: String;
+.br
+%: Percent sign (if \"%%\")
+.br
+i: Signed decimal integer;
+.br
+d: Signed decimal integer;
+.br
+.SH RETURN VALUE:
+The _printf() function returns the number of characters printed to the stdout
+.SH EXAMPLE:
+.B printf(\"Hello, World!\");
+.br
+This code will print the following output to the stdout stream:
+.br
+**Hello, World!**
+.SH AUTHOR:
+Okan Mahmudov - Okan Mahmudov.
+.br
+Shukur - Shukur.
+.br
+.SH SEE ALSO:
+official printf function: man (1) printf" > _printf.1
+mv _printf.1 /usr/local/man/man1/
+gzip -f /usr/local/man/man1/_printf.1
+man _printf
